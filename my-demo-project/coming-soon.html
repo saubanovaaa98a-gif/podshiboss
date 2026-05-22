@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PB Nails — Скоро открытие</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent1:   #e8749a;
+      --accent2:   #c84b8a;
+      --accent3:   #9b3073;
+      --lavender:  #b57bee;
+      --text-main: #f5e6f0;
+      --text-muted:#c4a0bb;
+      --card-bg:   rgba(255,255,255,0.06);
+      --card-border:rgba(232,116,154,0.25);
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      background: #0d0517;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+
+    /* ── BACKGROUND ─────────────────────────────── */
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 15% 5%,  #5a1a4a55 0%, transparent 58%),
+        radial-gradient(ellipse 55% 45% at 88% 15%, #3a0e5eaa 0%, transparent 52%),
+        radial-gradient(ellipse 65% 40% at 50% 85%, #72195088 0%, transparent 58%),
+        radial-gradient(ellipse 100% 80% at 50% 50%,#180828 0%, #0d0517 100%);
+    }
+    .cloud { position:absolute; border-radius:50%; filter:blur(90px); animation:drift 20s ease-in-out infinite alternate; }
+    .c1 { width:600px;height:350px;background:#8b2d6a;opacity:.3;top:-100px;left:-130px;animation-duration:22s }
+    .c2 { width:450px;height:280px;background:#4a1280;opacity:.32;top:25%;right:-100px;animation-duration:26s;animation-delay:-8s }
+    .c3 { width:400px;height:220px;background:#c04080;opacity:.15;bottom:10%;left:5%;animation-duration:24s;animation-delay:-14s }
+    @keyframes drift { from{transform:translate(0,0) scale(1)} to{transform:translate(32px,22px) scale(1.08)} }
+
+    /* ── CARD ───────────────────────────────────── */
+    .card {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 620px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 56px 48px;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      text-align: center;
+      box-shadow: 0 40px 100px rgba(155,48,115,.18);
+    }
+
+    @media (max-width: 520px) {
+      .card { padding: 40px 24px; border-radius: 24px; }
+    }
+
+    /* ── LOGO ───────────────────────────────────── */
+    .logo {
+      display: inline-block; margin-bottom: 32px;
+      font-size: 1.6rem; font-weight: 900; letter-spacing: -.5px;
+      background: linear-gradient(135deg, var(--accent1), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── NAIL ICON ──────────────────────────────── */
+    .nail-icon {
+      width: 72px; height: 72px; margin: 0 auto 28px;
+      background: linear-gradient(135deg, rgba(232,116,154,.2), rgba(181,123,238,.2));
+      border: 1px solid rgba(232,116,154,.35);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nail-icon svg { width: 36px; height: 36px; }
+
+    /* ── HEADING ────────────────────────────────── */
+    h1 {
+      font-size: clamp(1.7rem, 5vw, 2.6rem);
+      font-weight: 900; line-height: 1.15; letter-spacing: -.02em;
+      background: linear-gradient(135deg, #fcd5e8 0%, var(--accent1) 40%, var(--lavender) 80%, #d4acf5 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 14px;
+    }
+    .sub {
+      font-size: .95rem; color: var(--text-muted);
+      line-height: 1.7; margin-bottom: 40px; max-width: 420px; margin-left: auto; margin-right: auto;
+    }
+
+    /* ── COUNTDOWN ──────────────────────────────── */
+    .countdown {
+      display: flex; gap: 12px; justify-content: center;
+      margin-bottom: 44px; flex-wrap: wrap;
+    }
+    .cd-block {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 16px 20px; min-width: 76px;
+    }
+    .cd-num {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--accent1), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-variant-numeric: tabular-nums;
+      transition: transform .15s ease;
+    }
+    .cd-num.bump { transform: scale(1.18); }
+    .cd-label {
+      font-size: .65rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px;
+    }
+    .cd-sep {
+      font-size: 2rem; font-weight: 900; color: var(--accent3);
+      align-self: center; line-height: 1; padding-bottom: 18px; opacity: .6;
+      animation: sep-blink 1s ease-in-out infinite;
+    }
+    @keyframes sep-blink { 0%,100%{opacity:.6} 50%{opacity:.15} }
+
+    /* ── DIVIDER ────────────────────────────────── */
+    .rule {
+      width: 48px; height: 3px; margin: 0 auto 36px;
+      background: linear-gradient(90deg, var(--accent3), var(--accent1), var(--lavender));
+      border-radius: 2px;
+    }
+
+    /* ── FORM ───────────────────────────────────── */
+    .form-label {
+      font-size: .82rem; color: var(--text-muted); margin-bottom: 14px;
+    }
+    .form-row {
+      display: flex; gap: 10px; max-width: 420px; margin: 0 auto 28px;
+    }
+    .form-input {
+      flex: 1; padding: 14px 18px; border-radius: 50px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(232,116,154,.25);
+      color: var(--text-main); font-size: .9rem; outline: none;
+      transition: border-color .2s;
+    }
+    .form-input::placeholder { color: rgba(196,160,187,.5); }
+    .form-input:focus { border-color: var(--accent1); }
+    .form-btn {
+      padding: 14px 22px; border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent2), var(--lavender));
+      color: #fff; font-size: .88rem; font-weight: 700;
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: opacity .2s, transform .2s;
+    }
+    .form-btn:hover { opacity: .88; transform: translateY(-1px); }
+
+    .form-thanks {
+      display: none; font-size: .9rem; color: var(--accent1);
+      font-weight: 600; margin-bottom: 28px;
+    }
+
+    @media (max-width: 420px) {
+      .form-row { flex-direction: column; }
+      .form-input, .form-btn { border-radius: 14px; }
+    }
+
+    /* ── CONTACT ────────────────────────────────── */
+    .contact-row {
+      display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: .88rem; font-weight: 700; text-decoration: none;
+      color: var(--text-muted); transition: color .2s;
+    }
+    .contact-link:hover { color: var(--accent1); }
+    .contact-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .contact-sep { width: 4px; height: 4px; border-radius: 50%; background: rgba(200,160,187,.3); }
+
+    /* ── FOOTER NOTE ────────────────────────────── */
+    .note {
+      position: relative; z-index: 1;
+      margin-top: 28px; font-size: .72rem;
+      color: rgba(196,160,187,.35); letter-spacing: .3px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+</div>
+
+<div class="card">
+
+  <div class="logo">PB Nails</div>
+
+  <div class="nail-icon">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 3C8 3 6 5 6 10C6 15 8 19 12 21C16 19 18 15 18 10C18 5 16 3 16 3C14.5 4.5 13 5 12 5C11 5 9.5 4.5 8 3Z"
+            stroke="url(#nail-g)" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M9 8C9 8 9.5 10 12 10C14.5 10 15 8 15 8" stroke="url(#nail-g)" stroke-width="1.8" stroke-linecap="round"/>
+      <defs>
+        <linearGradient id="nail-g" x1="6" y1="3" x2="18" y2="21" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#e8749a"/>
+          <stop offset="100%" stop-color="#b57bee"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <h1>Скоро открытие нового набора</h1>
+  <p class="sub">
+    Школа маникюра Полины Бунегиной готовит новый поток обучения.
+    Оставьте имейл — сообщим первыми, когда откроется запись.
+  </p>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown">
+    <div class="cd-block">
+      <span class="cd-num" id="cd-days">00</span>
+      <span class="cd-label">Дней</span>
+    </div>
+    <span class="cd-sep">:</span>
+    <div class="cd-block">
+      <span class="cd-num" id="cd-hours">00</span>
+      <span class="cd-label">Часов</span>
+    </div>
+    <span class="cd-sep">:</span>
+    <div class="cd-block">
+      <span class="cd-num" id="cd-mins">00</span>
+      <span class="cd-label">Минут</span>
+    </div>
+    <span class="cd-sep">:</span>
+    <div class="cd-block">
+      <span class="cd-num" id="cd-secs">00</span>
+      <span class="cd-label">Секунд</span>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <!-- FORM -->
+  <p class="form-label">Получите уведомление первой</p>
+  <div class="form-row" id="form-row">
+    <input class="form-input" type="email" placeholder="Ваш email" id="email-input" />
+    <button class="form-btn" onclick="handleSubmit()">Уведомить меня</button>
+  </div>
+  <p class="form-thanks" id="form-thanks">
+    ✓ Отлично! Напишем вам, как только откроется запись.
+  </p>
+
+  <!-- CONTACTS -->
+  <div class="contact-row">
+    <a href="tel:+79962290206" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.37 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.28 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/>
+      </svg>
+      +7 (996) 229-02-06
+    </a>
+    <span class="contact-sep"></span>
+    <a href="https://wa.me/79962290206" target="_blank" rel="noopener" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </svg>
+      WhatsApp
+    </a>
+    <span class="contact-sep"></span>
+    <a href="landing.html" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      О школе
+    </a>
+  </div>
+
+</div>
+
+<p class="note">© 2026 Школа маникюра Полины Бунегиной · PB Nails</p>
+
+<script>
+  // ── Countdown target: поменяйте дату на нужную ──
+  const TARGET = new Date('2026-09-01T10:00:00');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function bump(id) {
+    const el = document.getElementById(id);
+    el.classList.remove('bump');
+    void el.offsetWidth;
+    el.classList.add('bump');
+    setTimeout(() => el.classList.remove('bump'), 150);
+  }
+
+  const prev = { days: null, hours: null, mins: null, secs: null };
+
+  function tick() {
+    const diff = TARGET - Date.now();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    if (days  !== prev.days)  { document.getElementById('cd-days').textContent  = pad(days);  bump('cd-days');  prev.days  = days; }
+    if (hours !== prev.hours) { document.getElementById('cd-hours').textContent = pad(hours); bump('cd-hours'); prev.hours = hours; }
+    if (mins  !== prev.mins)  { document.getElementById('cd-mins').textContent  = pad(mins);  bump('cd-mins');  prev.mins  = mins; }
+    if (secs  !== prev.secs)  { document.getElementById('cd-secs').textContent  = pad(secs);  bump('cd-secs');  prev.secs  = secs; }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+
+  // ── Form submit ──
+  function handleSubmit() {
+    const val = document.getElementById('email-input').value.trim();
+    if (!val || !val.includes('@')) {
+      document.getElementById('email-input').style.borderColor = '#e8749a';
+      return;
+    }
+    document.getElementById('form-row').style.display = 'none';
+    document.getElementById('form-thanks').style.display = 'block';
+    document.querySelector('.form-label').style.display = 'none';
+  }
+
+  document.getElementById('email-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleSubmit();
+  });
+</script>
+
+</body>
+</html>
